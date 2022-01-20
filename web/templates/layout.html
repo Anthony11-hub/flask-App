@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--This is the base Template-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main6a.css')}}">
+    {% if title %}
+        <title>Flask Blog - {{ title }}</title>
+    {% else %}
+        <title>Flask Blog</title>
+    {% endif %}
+</head>
+<body>
+<!--Some bootstrap text to be printed here to modify the layout-->
+    <header>
+<!-- complete -->
+          <!-- navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"><img src="https://iconape.com/wp-content/files/iz/114522/svg/webdev-1.svg" width="100px"
+                 height="50px" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                 data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                  aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)
+                      </span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('users.account') }}">Account</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </div>
+            </nav>
+    </header>
+<!-- complete -->
+<main>
+	<div>
+		<div>
+			{% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+			{% endwith %}
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+</main>
+    <!--The bootstrap scripts 3 in total-->
+       <!-- footer -->
+   <footer>
+     <div class="container-fluid padding">
+       <div class="row text-center">
+         <div class="col-md-4">
+           <img src="https://iconape.com/wp-content/files/iz/114522/svg/webdev-1.svg"width="100px"height="50px" alt="">
+           <hr class="light">
+           <p>+254-750-128-626</p>
+           <p>fake@gmail.com</p>
+           <p>A40D Jacridge street, Membley estate</p>
+           <p>Kiambu, Kenya, 00232</p>
+         </div>
+         <div class="col-md-4">
+           <hr class="light">
+           <h5>Our Hours</h5>
+           <hr class="light">
+           <p>Weekdays: 9am - 6pm</p>
+           <p>Saturday: 10am - 3pm</p>
+           <p>Sunday: closed</p>
+         </div>
+         <div class="col-md-4">
+           <hr class="light">
+           <h5>Service States</h5>
+           <hr class="light-100">
+           <p>City, State, 00000</p>
+           <p>City, State, 00000</p>
+           <p>City, State, 00000</p>
+         </div>
+         <div class="col-12">
+           <hr class="light">
+           <h5>&copy; hackers.com</h5>
+         </div>
+       </div>
+     </div>
+   </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>
